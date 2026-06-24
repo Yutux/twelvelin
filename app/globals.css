@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  --navy: #0D2137;
+  --navy-mid: #1A3A5C;
+  --emerald: #0E7C5B;
+  --emerald-light: #E8F5F0;
+  --gold: #C9A84C;
+  --gold-light: #FBF5E6;
+  --gray-text: #5A6A7A;
+  --bg-light: #F4F7FA;
+  --white: #FFFFFF;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-emerald: var(--emerald);
+  --color-gold: var(--gold);
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--navy);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--emerald);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 6px 6px;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 3px; }
