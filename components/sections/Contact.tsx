@@ -17,12 +17,26 @@ export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-    await new Promise(r => setTimeout(r, 1000));
-    setSent(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) {
+        setSubmitError(json.error || "Une erreur est survenue. Veuillez réessayer.");
+        return;
+      }
+      setSent(true);
+    } catch {
+      setSubmitError("Impossible d envoyer le message. Vérifiez votre connexion.");
+    }
   };
 
   const inputStyle = (hasError?: boolean) => ({
@@ -140,6 +154,12 @@ export default function Contact() {
                     onFocus={e => e.target.style.borderColor = "var(--emerald)"}
                     onBlur={e => e.target.style.borderColor = "rgba(13,33,55,0.15)"} />
                 </div>
+
+                {submitError && (
+                  <div style={{ background: "#FEE2E2", border: "1px solid #FECACA", borderRadius: 10, padding: "0.75rem 1rem", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ color: "#DC2626", fontSize: "0.85rem", fontWeight: 500 }}>⚠ {submitError}</span>
+                  </div>
+                )}
 
                 <button type="submit" disabled={isSubmitting}
                   style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.6rem", background: isSubmitting ? "var(--gray-text)" : "var(--emerald)", color: "white", border: "none", padding: "0.95rem", borderRadius: 10, fontWeight: 700, fontSize: "0.95rem", fontFamily: "Inter,sans-serif", cursor: isSubmitting ? "not-allowed" : "pointer", transition: "opacity 0.15s, transform 0.15s" }}
