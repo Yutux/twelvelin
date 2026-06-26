@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { adminEmailHtml, confirmationEmailHtml } from "@/lib/emailTemplates";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 // Validation simple côté serveur
 function validate(data: Record<string, unknown>) {
@@ -23,6 +23,7 @@ function validate(data: Record<string, unknown>) {
 
 export async function POST(req: NextRequest) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const body = await req.json();
     const { nom, email, telephone, formation, message } = body;
 

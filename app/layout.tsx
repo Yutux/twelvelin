@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/UI/CookieBanner";
 import ConditionalAnalytics from "@/components/UI/ConditionalAnalytics";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const BASE_URL = "https://twelvelin.fr";
 
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <CookieBanner />
         <ConditionalAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   );
