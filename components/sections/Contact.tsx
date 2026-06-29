@@ -80,9 +80,9 @@ export default function Contact() {
             {/* Coordonnées */}
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
-                { icon: <MapPin size={18} />, label: "Adresse", val: "12 rue de la Formation, 75000 Paris" },
-                { icon: <Mail size={18} />, label: "Email", val: "contact@twelvelin.fr" },
-                { icon: <Phone size={18} />, label: "Téléphone", val: "01 23 45 67 89" },
+                { icon: <MapPin size={18} />, label: "Adresse", val: "23 Rue Nollet, 75017 Paris" },
+                { icon: <Mail size={18} />, label: "Email", val: "contact.twelvelin@gmail.com" },
+                { icon: <Phone size={18} />, label: "Téléphone", val: "07 52 21 37 49" },
               ].map((c, i) => (
                 <div key={i} style={{ display: "flex", gap: "1rem", alignItems: "flex-start", background: "white", padding: "1rem 1.2rem", borderRadius: 12, boxShadow: "0 2px 10px rgba(13,33,55,0.06)" }}>
                   <div style={{ background: "var(--emerald-light)", color: "var(--emerald)", borderRadius: 10, padding: "0.55rem", display: "flex", flexShrink: 0 }}>{c.icon}</div>

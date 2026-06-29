@@ -1,7 +1,8 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Monitor, Users, Award, Clock, CheckCircle, Shield } from "lucide-react";
+import Link from "next/link";
+import { Monitor, Users, Award, Clock, CheckCircle, Shield, ArrowRight, Send } from "lucide-react";
 import Image from "next/image";
 
 const cursus = [
@@ -83,16 +84,20 @@ export default function FormationADVF() {
                 ))}
               </ul>
 
-              <div style={{ borderTop: "1px solid #f0f0f0", paddingTop: "1.2rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <div>
-                  <p style={{ fontSize: "0.72rem", color: "var(--gray-text)", marginBottom: 2 }}>Tarif</p>
-                  <p style={{ fontFamily: "Syne,sans-serif", fontWeight: 800, color: "var(--navy)", fontSize: "1.05rem" }}>Sur devis</p>
-                </div>
-                <a href="#contact" style={{ background: c.color, color: "white", padding: "0.6rem 1.2rem", borderRadius: 8, fontWeight: 600, fontSize: "0.85rem", textDecoration: "none", transition: "opacity 0.15s" }}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <Link href="/formations/advf"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: c.color, fontWeight: 600, fontSize: "0.82rem", textDecoration: "none", padding: "0.5rem 0.9rem", borderRadius: 8, border: `1px solid ${c.color}30`, background: `${c.color}08`, transition: "background 0.15s", whiteSpace: "nowrap" }}
+                  onMouseEnter={e => e.currentTarget.style.background = `${c.color}18`}
+                  onMouseLeave={e => e.currentTarget.style.background = `${c.color}08`}>
+                  <ArrowRight size={14} /> En savoir plus
+                </Link>
+                <Link href="/nous-contacter"
+                  title="Demander un devis"
+                  style={{ background: c.color, color: "white", padding: "0.55rem 0.75rem", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", transition: "opacity 0.15s", flexShrink: 0 }}
                   onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
                   onMouseLeave={e => e.currentTarget.style.opacity = "1"}>
                   Demander un devis
-                </a>
+                </Link>
               </div>
             </motion.div>
           ))}
