@@ -30,35 +30,34 @@ export function useCookieConsent() {
   return { consent, save };
 }
 
-export default function CookieBanner({ forceOpen }: { forceOpen?: boolean }) {
-  // On lit localStorage directement à l'init pour éviter le race condition
+export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [analytics, setAnalytics] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
+  // 1. Affichage automatique au premier visit
   useEffect(() => {
-    // Détecter si on est en mobile
+    const stored = localStorage.getItem(COOKIE_KEY);
+    if (stored) return;
+    const timer = setTimeout(() => setVisible(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 2. Écoute le bouton "Gérer mes cookies" du footer
+  useEffect(() => {
+    const handler = () => setVisible(true);
+    window.addEventListener("openCookieBanner", handler);
+    return () => window.removeEventListener("openCookieBanner", handler);
+  }, []);
+
+  // 3. Détecter mobile
+  useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
-
-  useEffect(() => {
-    // Vérifier si un choix existe déjà
-    const stored = localStorage.getItem(COOKIE_KEY);
-    if (stored && !forceOpen) return; // Déjà un choix — on n'affiche pas sauf si on force l'ouverture
-
-    if (forceOpen) {
-      setVisible(true);
-      return;
-    }
-
-    // Pas encore de choix → afficher après délai
-    const timer = setTimeout(() => setVisible(true), 1000);
-    return () => clearTimeout(timer);
-  }, [forceOpen]); // Réagir si on force l'ouverture depuis le parent
 
   const save = (state: ConsentState) => {
     localStorage.setItem(COOKIE_KEY, JSON.stringify(state));
@@ -115,22 +114,24 @@ export default function CookieBanner({ forceOpen }: { forceOpen?: boolean }) {
                     <Cookie size={isMobile ? 16 : 20} color="var(--emerald)" />
                   </div>
                   <div style={{ minWidth: 0, flex: 1 }}>
-                    <h3 style={{ fontFamily: "Syne,sans-serif", fontWeight: 800, fontSize: isMobile ? "0.82rem" : "1rem", color: "var(--navy)", marginBottom: "0.2rem", lineHeight: 1.3, margin: 0, wordBreak: "break-word" }}>
+                    <h3 style={{ fontFamily: "Syne,sans-serif", fontWeight: 800, fontSize: isMobile ? "0.82rem" : "1rem", color: "var(--navy)", margin: 0, lineHeight: 1.3, wordBreak: "break-word" }}>
                       Vos préférences
                     </h3>
-                    <p style={{ color: "var(--gray-text)", fontSize: isMobile ? "0.72rem" : "0.82rem", lineHeight: 1.4, marginBottom: 0, margin: 0, wordWrap: "break-word", overflowWrap: "break-word" }}>
+                    <p style={{ color: "var(--gray-text)", fontSize: isMobile ? "0.72rem" : "0.82rem", lineHeight: 1.4, margin: 0, overflowWrap: "break-word" }}>
                       Cookies pour améliorer votre expérience.{" "}
-                      <Link href="/mentions-legales" style={{ color: "var(--emerald)", textDecoration: "none", fontWeight: 600, display: "inline" }}>
+                      <Link href="/mentions-legales" style={{ color: "var(--emerald)", textDecoration: "none", fontWeight: 600 }}>
                         Plus
                       </Link>
                     </p>
                   </div>
                 </div>
-                <button onClick={rejectAll}
-                  style={{ background: "none", border: "none", cursor: "pointer", color: "var(--gray-text)", padding: "0", flexShrink: 0, borderRadius: 6, transition: "background 0.15s", width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", marginTop: "0.2rem" }}
+                <button
+                  onClick={rejectAll}
                   aria-label="Fermer"
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "var(--gray-text)", padding: 0, flexShrink: 0, borderRadius: 6, width: 20, height: 20, display: "flex", alignItems: "center", justifyContent: "center", marginTop: "0.2rem" }}
                   onMouseEnter={e => e.currentTarget.style.background = "rgba(13,33,55,0.06)"}
-                  onMouseLeave={e => e.currentTarget.style.background = "none"}>
+                  onMouseLeave={e => e.currentTarget.style.background = "none"}
+                >
                   <X size={14} />
                 </button>
               </div>
@@ -170,33 +171,41 @@ export default function CookieBanner({ forceOpen }: { forceOpen?: boolean }) {
 
               {/* Actions */}
               <div style={{ display: "flex", alignItems: "stretch", gap: isMobile && expanded ? "0" : isMobile ? "0.4rem" : "0.75rem", flexDirection: isMobile && expanded ? "column" : "row", width: "100%" }}>
-                <button onClick={() => setExpanded(!expanded)}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.2rem", background: "none", border: "1px solid rgba(13,33,55,0.15)", color: "var(--navy)", padding: isMobile ? "0.4rem 0.6rem" : "0.55rem 1rem", borderRadius: 6, fontWeight: 500, fontSize: isMobile ? "0.73rem" : "0.83rem", cursor: "pointer", fontFamily: "Inter,sans-serif", transition: "background 0.15s", width: isMobile && expanded ? "100%" : isMobile && !expanded ? "auto" : "auto", whiteSpace: "nowrap", flex: 0 }}
+                <button
+                  onClick={() => setExpanded(!expanded)}
+                  style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.2rem", background: "none", border: "1px solid rgba(13,33,55,0.15)", color: "var(--navy)", padding: isMobile ? "0.4rem 0.6rem" : "0.55rem 1rem", borderRadius: 6, fontWeight: 500, fontSize: isMobile ? "0.73rem" : "0.83rem", cursor: "pointer", fontFamily: "Inter,sans-serif", transition: "background 0.15s", whiteSpace: "nowrap", flex: 0 }}
                   onMouseEnter={e => e.currentTarget.style.background = "var(--bg-light)"}
-                  onMouseLeave={e => e.currentTarget.style.background = "none"}>
+                  onMouseLeave={e => e.currentTarget.style.background = "none"}
+                >
                   Perso {expanded ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
                 </button>
 
                 {expanded && (
-                  <button onClick={saveCustom}
-                    style={{ background: "var(--navy)", color: "white", border: "none", padding: isMobile ? "0.4rem 0.65rem" : "0.55rem 1.1rem", borderRadius: 6, fontWeight: 600, fontSize: isMobile ? "0.73rem" : "0.83rem", cursor: "pointer", fontFamily: "Inter,sans-serif", transition: "opacity 0.15s", width: "100%", whiteSpace: "nowrap", flex: 0 }}
+                  <button
+                    onClick={saveCustom}
+                    style={{ background: "var(--navy)", color: "white", border: "none", padding: isMobile ? "0.4rem 0.65rem" : "0.55rem 1.1rem", borderRadius: 6, fontWeight: 600, fontSize: isMobile ? "0.73rem" : "0.83rem", cursor: "pointer", fontFamily: "Inter,sans-serif", transition: "opacity 0.15s", width: "100%", whiteSpace: "nowrap" }}
                     onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
-                    onMouseLeave={e => e.currentTarget.style.opacity = "1"}>
+                    onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+                  >
                     Sauvegarder
                   </button>
                 )}
 
-                <div style={{ display: "flex", gap: isMobile && expanded ? "0.4rem" : isMobile ? "0.4rem" : "0.6rem", marginLeft: isMobile && !expanded ? "0" : isMobile && expanded ? "0" : "auto", width: isMobile && expanded ? "100%" : "auto", flexDirection: isMobile && expanded ? "row" : "row", flex: isMobile && !expanded ? 1 : "initial", minWidth: 0 }}>
-                  <button onClick={rejectAll}
-                    style={{ background: "none", border: "1px solid rgba(13,33,55,0.15)", color: "var(--gray-text)", padding: isMobile ? "0.4rem 0.6rem" : "0.55rem 1rem", borderRadius: 6, fontWeight: 500, fontSize: isMobile ? "0.73rem" : "0.83rem", cursor: "pointer", fontFamily: "Inter,sans-serif", transition: "background 0.15s", flex: isMobile ? 1 : "initial", whiteSpace: "nowrap", minWidth: 0 }}
+                <div style={{ display: "flex", gap: "0.4rem", marginLeft: isMobile ? "0" : "auto", flex: isMobile && !expanded ? 1 : "initial" }}>
+                  <button
+                    onClick={rejectAll}
+                    style={{ background: "none", border: "1px solid rgba(13,33,55,0.15)", color: "var(--gray-text)", padding: isMobile ? "0.4rem 0.6rem" : "0.55rem 1rem", borderRadius: 6, fontWeight: 500, fontSize: isMobile ? "0.73rem" : "0.83rem", cursor: "pointer", fontFamily: "Inter,sans-serif", transition: "background 0.15s", flex: isMobile ? 1 : "initial", whiteSpace: "nowrap" }}
                     onMouseEnter={e => e.currentTarget.style.background = "var(--bg-light)"}
-                    onMouseLeave={e => e.currentTarget.style.background = "none"}>
+                    onMouseLeave={e => e.currentTarget.style.background = "none"}
+                  >
                     Refuser
                   </button>
-                  <button onClick={acceptAll}
-                    style={{ background: "var(--emerald)", color: "white", border: "none", padding: isMobile ? "0.4rem 0.7rem" : "0.55rem 1.3rem", borderRadius: 6, fontWeight: 700, fontSize: isMobile ? "0.73rem" : "0.83rem", cursor: "pointer", fontFamily: "Inter,sans-serif", transition: "opacity 0.15s, transform 0.15s", flex: isMobile ? 1 : "initial", whiteSpace: "nowrap", minWidth: 0 }}
+                  <button
+                    onClick={acceptAll}
+                    style={{ background: "var(--emerald)", color: "white", border: "none", padding: isMobile ? "0.4rem 0.7rem" : "0.55rem 1.3rem", borderRadius: 6, fontWeight: 700, fontSize: isMobile ? "0.73rem" : "0.83rem", cursor: "pointer", fontFamily: "Inter,sans-serif", transition: "opacity 0.15s, transform 0.15s", flex: isMobile ? 1 : "initial", whiteSpace: "nowrap" }}
                     onMouseEnter={e => { e.currentTarget.style.opacity = "0.88"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = ""; }}>
+                    onMouseLeave={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = ""; }}
+                  >
                     Accepter
                   </button>
                 </div>
@@ -251,8 +260,7 @@ function CookieRow({
           position: "absolute", top: isMobile ? 2.5 : 3,
           left: checked ? (isMobile ? 19 : 21) : (isMobile ? 2.5 : 3),
           width: isMobile ? 17 : 18, height: isMobile ? 17 : 18, borderRadius: "50%",
-          background: "white",
-          boxShadow: "0 1px 4px rgba(0,0,0,0.2)",
+          background: "white", boxShadow: "0 1px 4px rgba(0,0,0,0.2)",
           transition: "left 0.25s",
         }} />
       </button>

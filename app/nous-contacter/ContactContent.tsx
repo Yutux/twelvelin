@@ -71,9 +71,9 @@ export default function ContactContent() {
             {/* Coordonnées */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem", marginBottom: "2rem" }}>
               {[
-                { icon: <MapPin size={18} />, label: "Adresse", val: "12 rue de la Formation, 75000 Paris", color: "var(--emerald)" },
-                { icon: <Mail size={18} />, label: "Email", val: "contact@twelvelin.fr", color: "var(--gold)" },
-                { icon: <Phone size={18} />, label: "Téléphone", val: "01 23 45 67 89", color: "var(--emerald)" },
+                { icon: <MapPin size={18} />, label: "Adresse", val: "23 Rue Nollet, 75017 Paris.", color: "var(--emerald)" },
+                { icon: <Mail size={18} />, label: "Email", val: "contact.twelvelin@gmail.com", color: "var(--gold)" },
+                { icon: <Phone size={18} />, label: "Téléphone", val: "07 52 21 37 49", color: "var(--emerald)" },
                 { icon: <Clock size={18} />, label: "Horaires", val: "Lun–Ven : 9h–18h", color: "var(--gold)" },
               ].map((c, i) => (
                 <motion.div key={i}

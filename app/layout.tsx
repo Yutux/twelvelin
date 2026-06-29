@@ -23,6 +23,14 @@ export const metadata: Metadata = {
   // Mots-clés (moins importants qu'avant mais utiles)
   keywords: [
     "formation ADVF Paris",
+    "formation alphabétisation Paris 17",
+    "alphabétisation A1→C1 Paris",
+    "alphabétisation débutant Paris",
+    "alphabétisation adultes Paris",
+    "twelvelin formation",
+    "formation certifiante",
+    "twelvelin.fr",
+    "twelvelin formation Paris",
     "auxiliaire de vie aux familles",
     "formation certifiante aide à domicile",
     "cours alphabétisation Paris",

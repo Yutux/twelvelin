@@ -9,14 +9,14 @@ const sections = [
     content: `Le site twelvelin.fr est édité par :
 
 **Twelvelin Formation**
-Forme juridique : [À compléter]
-Adresse : 12 rue de la Formation, 75000 Paris
-Téléphone : 01 23 45 67 89
-Email : contact@twelvelin.fr
-N° de déclaration d'activité de formation : 11 75 XXXXXXXX
-N° SIRET : [À compléter]
+Forme juridique : microentreprise
+Adresse : 23 Rue Nollet, 75017 Paris
+Téléphone : 07 52 21 37 49
+Email : contact.twelvelin@gmail.com
+N° de déclaration d'activité de formation : 11 91 11 36 191
+N° SIRET : 98917225900016
 
-Directeur de la publication : [Nom du responsable]`,
+Directeur de la publication : GNANCADJA Carine`,
   },
   {
     title: "2. Hébergement",

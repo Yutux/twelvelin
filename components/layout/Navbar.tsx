@@ -14,7 +14,7 @@ const nav = [
     ],
   },
   { label: "Comment ça marche", href: "/#etapes" },
-  { label: "Contact", href: "/nous-conta cter" },
+  //{ label: "Contact", href: "/nous-contacter" },
 ];
 
 export default function Navbar() {
