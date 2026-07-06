@@ -1,7 +1,8 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { BookOpen, Mic, PenLine, Brain, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { BookOpen, Mic, PenLine, Brain, Sparkles, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 const niveaux = [
@@ -43,7 +44,23 @@ export default function FormationAlpha() {
             <p style={{ color: "var(--gray-text)", fontSize: "1rem", lineHeight: 1.75, marginTop: "0.75rem" }}>
               Des cours individualisés du niveau A1 au C1, dispensés par des formateurs expérimentés. Progressez à votre rythme, en toute bienveillance.
             </p>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <Link href="/formations/alphabetisation" title="En savoir plus sur la formation"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: colorAt(3), fontWeight: 600, fontSize: "0.82rem", textDecoration: "none", padding: "0.5rem 0.9rem", background: `${colorAt(0)}08`, transition: "background 0.15s", whiteSpace: "nowrap" }}
+                  onMouseEnter={e => e.currentTarget.style.background = `${colorAt(3)}18`}
+                  onMouseLeave={e => e.currentTarget.style.background = `${colorAt(4)}08`}>
+                  <ArrowRight size={14} /> En savoir plus
+                </Link>
+                <Link href="#contact"
+                  title="Demander un devis"
+                  style={{ background: colorAt(0), color: "white", padding: "0.55rem 0.75rem", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", transition: "opacity 0.15s", flexShrink: 0 }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
+                  onMouseLeave={e => e.currentTarget.style.opacity = "1"}>
+                  Demander un devis
+                </Link>
+              </div>
           </motion.div>
+
         </div>
 
         {/* Niveaux — timeline */}

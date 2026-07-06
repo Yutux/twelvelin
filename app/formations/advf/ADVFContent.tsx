@@ -1,7 +1,7 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Shield, Award, Clock, Users, CheckCircle, ArrowRight, BookOpen, Heart, Home } from "lucide-react";
+import { Shield, Award, Clock, Users, CheckCircle, ArrowRight, BookOpen, Heart, Home, Info } from "lucide-react";
 import PageHero from "@/components/UI/PageHero";
 import FAQJsonLd from "@/components/seo/FAQJsonLd";
 import Timeline from "@/components/UI/Timeline";
@@ -9,79 +9,71 @@ import Link from "next/link";
 
 const timelineItems = [
   {
-    period: "Mois 1-2",
-    label: "Fondamentaux",
-    title: "Découverte du métier & bases théoriques",
-    desc: "Introduction au rôle de l'auxiliaire de vie, cadre légal, éthique professionnelle et premiers gestes.",
+    period: "CCP 1",
+    label: "Entretien du domicile",
+    title: "Entretenir le logement et le linge d'un particulier",
+    desc: "Apprenez à réaliser les prestations d'entretien du logement et du linge dans le respect des règles d'hygiène, de sécurité et des attentes du particulier.",
     details: [
-      "Rôle et missions de l'ADVF",
-      "Cadre juridique et déontologie",
-      "Hygiène et prévention des risques",
-      "Communication avec les bénéficiaires",
-    ],
-    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80",
-    imageAlt: "Formation théorique ADVF",
-    color: "var(--emerald)",
-  },
-  {
-    period: "Mois 3-4",
-    label: "Aide à domicile",
-    title: "Entretien du cadre de vie",
-    desc: "Apprentissage pratique des techniques d'entretien, gestion du domicile et organisation des tâches.",
-    details: [
-      "Techniques de nettoyage et d'entretien",
-      "Gestion du linge et repassage",
-      "Préparation et équilibre des repas",
-      "Organisation et planification",
+      "Organiser son intervention",
+      "Établir une relation professionnelle avec le particulier",
+      "Entretenir le logement selon les techniques adaptées",
+      "Entretenir le linge et respecter les consignes d'entretien",
+      "Réaliser des travaux simples de couture",
+      "Appliquer les écogestes et prévenir les risques",
     ],
     image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80",
-    imageAlt: "Aide à domicile",
-    color: "var(--gold)",
+    imageAlt: "Entretien du logement",
+    color: "var(--emerald)",
   },
   {
-    period: "Mois 5-6",
+    period: "CCP 2",
     label: "Accompagnement",
-    title: "Accompagnement des personnes",
-    desc: "Soutien aux personnes fragilisées, personnes âgées, enfants et situations de dépendance.",
+    title: "Accompagner la personne dans les actes essentiels du quotidien",
+    desc: "Développez les compétences nécessaires pour accompagner les personnes dans leur vie quotidienne tout en favorisant leur autonomie et leur bien-être.",
     details: [
-      "Accompagnement des personnes âgées",
-      "Aide aux actes de la vie quotidienne",
-      "Soutien à la parentalité",
-      "Gestion des situations d'urgence",
+      "Créer une relation professionnelle avec la personne et son entourage",
+      "Prévenir les risques et gérer les situations d'urgence",
+      "Accompagner la toilette, l'habillage et les déplacements",
+      "Aider à l'alimentation et aux actes essentiels",
+      "Favoriser l'autonomie et le lien social",
+      "Adapter son intervention aux situations de handicap",
     ],
     image: "https://images.unsplash.com/photo-1576765608866-5b51046452be?w=600&q=80",
-    imageAlt: "Accompagnement personne âgée",
-    color: "var(--emerald)",
-  },
-  {
-    period: "Mois 7-8",
-    label: "Stage pratique",
-    title: "Immersion en milieu professionnel",
-    desc: "Mise en pratique des compétences acquises directement auprès de bénéficiaires réels, en situation professionnelle.",
-    details: [
-      "Stage en structure agréée",
-      "Suivi par un tuteur professionnel",
-      "Rapport de stage et évaluation",
-      "Bilan de compétences",
-    ],
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80",
-    imageAlt: "Stage pratique en milieu professionnel",
+    imageAlt: "Accompagnement d'une personne",
     color: "var(--gold)",
   },
   {
-    period: "Mois 9",
-    label: "Certification",
-    title: "Évaluation finale & certification",
-    desc: "Passage des épreuves de certification pour l'obtention du titre professionnel RNCP reconnu par l'État.",
+    period: "CCP 3",
+    label: "Garde d'enfants",
+    title: "Assurer le relais du parent dans la garde de l'enfant à domicile",
+    desc: "Accompagnez l'enfant dans les actes de la vie quotidienne tout en garantissant sa sécurité, son développement et son épanouissement.",
     details: [
-      "Révisions et préparation intensive",
-      "Épreuves théoriques et pratiques",
-      "Jury de certification officiel",
-      "Obtention du titre RNCP",
+      "Définir le cadre de l'intervention avec le parent",
+      "Assurer la sécurité et prévenir les risques",
+      "Accompagner les apprentissages et la socialisation",
+      "Organiser des activités adaptées",
+      "Réaliser les gestes du quotidien : repas, toilette, coucher",
+    ],
+    image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80",
+    imageAlt: "Garde d'enfant à domicile",
+    color: "var(--emerald)",
+  },
+  {
+    period: "Certification",
+    label: "Titre Professionnel",
+    title: "Validation des compétences et obtention du titre",
+    desc: "À l'issue de la formation, les compétences sont évaluées conformément au référentiel officiel du Ministère du Travail.",
+    details: [
+      "Évaluations formatives tout au long du parcours",
+      "Mise en situation professionnelle (1 h 15)",
+      "Entretien technique avec le jury (50 min)",
+      "Entretien final et dossier professionnel (15 min)",
+      "Validation du certificat APS ASD ou SST",
+      "Obtention du Titre Professionnel ADVF (RNCP 37715 - Niveau 3)",
     ],
     image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80",
-    imageAlt: "Cérémonie de certification",
-    color: "var(--emerald)",
+    imageAlt: "Certification professionnelle",
+    color: "var(--gold)",
   },
 ];
 
@@ -105,6 +97,345 @@ function SectionHeader({ tag, title, accent, subtitle, inView }: { tag: string; 
   );
 }
 
+{/* Présentation de la formation */}
+function PresentationSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const items = [
+    {
+      title: "Un titre professionnel reconnu",
+      desc: "Le Titre Professionnel Assistant de Vie aux Familles (ADVF) est une certification de niveau 3 enregistrée au RNCP (n°37715) délivrée par le Ministère du Travail.",
+    },
+    {
+      title: "Un métier au cœur du quotidien",
+      desc: "L’ADVF intervient auprès des enfants, des familles, des personnes âgées ou en situation de handicap pour les accompagner dans les actes essentiels et ordinaires de la vie quotidienne.",
+    },
+    {
+      title: "Une mission d’accompagnement humain",
+      desc: "L’assistant de vie contribue au bien-être des personnes accompagnées en respectant leurs habitudes, leurs choix et leur autonomie, dans une démarche de bientraitance.",
+    },
+    {
+      title: "Une approche professionnelle",
+      desc: "L’intervention à domicile repose sur des règles d’hygiène, de sécurité et de qualité de service, adaptées aux besoins de chaque situation.",
+    },
+  ];
+
+  return (
+    <section
+      ref={ref}
+      style={{ padding: "6rem 1.5rem", background: "white" }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <SectionHeader
+          tag="Formation"
+          title="Présentation de la"
+          accent="formation ADVF"
+          subtitle="Le Titre Professionnel Assistant de Vie aux Familles forme des professionnels capables d’accompagner les personnes dans leur quotidien à domicile."
+          inView={inView}
+        />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
+            gap: "1.5rem",
+          }}
+        >
+          {items.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{
+                y: -4,
+                boxShadow: "0 12px 30px rgba(13,33,55,0.08)",
+              }}
+              style={{
+                background: "var(--bg-light)",
+                borderRadius: 18,
+                padding: "2rem",
+                border: "1px solid rgba(13,33,55,0.07)",
+              }}
+            >
+              <div
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 14,
+                  background: "var(--emerald-light)",
+                  color: "var(--emerald)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "1.2rem",
+                }}
+              >
+                <Info size={22} />
+              </div>
+
+              <h3
+                style={{
+                  fontFamily: "Syne, sans-serif",
+                  fontWeight: 700,
+                  fontSize: "1.05rem",
+                  color: "var(--navy)",
+                  marginBottom: "0.8rem",
+                }}
+              >
+                {item.title}
+              </h3>
+
+              <p
+                style={{
+                  color: "var(--gray-text)",
+                  lineHeight: 1.7,
+                  fontSize: ".9rem",
+                }}
+              >
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function EvaluationSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const evaluations = [
+    {
+      title: "Évaluations continues",
+      desc: "Les compétences sont évaluées tout au long de la formation au travers d'évaluations formatives et certificatives afin de mesurer la progression du candidat.",
+    },
+    {
+      title: "Mise en situation professionnelle",
+      desc: "Une épreuve pratique de 1 h 15 permettant d'évaluer les compétences professionnelles dans des situations proches des conditions réelles d'exercice.",
+    },
+    {
+      title: "Entretien avec le jury",
+      desc: "L'évaluation finale comprend un entretien technique de 50 minutes suivi d'un entretien final de 15 minutes, incluant l'échange autour du dossier professionnel du candidat.",
+    },
+    {
+      title: "Validation de la certification",
+      desc: "La compétence relative à la prévention des risques est validée par la présentation d'un certificat APS ASD ou SST en cours de validité. Les épreuves sont organisées conformément au référentiel du Titre Professionnel Assistant de Vie aux Familles.",
+    },
+  ];
+
+  return (
+    <section
+      style={{ padding: "6rem 1.5rem", background: "white" }}
+      ref={ref}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <SectionHeader
+          tag="Certification"
+          title="Modalités"
+          accent="d'évaluation"
+          subtitle="Les compétences sont évaluées tout au long du parcours puis validées lors des épreuves finales du Titre Professionnel ADVF."
+          inView={inView}
+        />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
+            gap: "1.5rem",
+          }}
+        >
+          {evaluations.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{
+                y: -4,
+                boxShadow: "0 12px 30px rgba(13,33,55,0.08)",
+              }}
+              style={{
+                background: "var(--bg-light)",
+                borderRadius: 18,
+                padding: "2rem",
+                border: "1px solid rgba(13,33,55,0.07)",
+              }}
+            >
+              <div
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 14,
+                  background: "var(--gold-light)",
+                  color: "var(--gold)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "1.2rem",
+                }}
+              >
+                <Award size={22} />
+              </div>
+
+              <h3
+                style={{
+                  fontFamily: "Syne,sans-serif",
+                  fontWeight: 700,
+                  fontSize: "1.05rem",
+                  color: "var(--navy)",
+                  marginBottom: "0.8rem",
+                }}
+              >
+                {item.title}
+              </h3>
+
+              <p
+                style={{
+                  color: "var(--gray-text)",
+                  lineHeight: 1.7,
+                  fontSize: ".9rem",
+                }}
+              >
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5 }}
+          style={{
+            textAlign: "center",
+            color: "var(--gray-text)",
+            fontSize: ".9rem",
+            marginTop: "2.5rem",
+            fontStyle: "italic",
+          }}
+        >
+          Durée totale des épreuves certificatives : <strong>2 h 20</strong>.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+function TeachingMethodsSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const methods = [
+    {
+      title: "Cours théoriques contextualisés",
+      desc: "Des apports théoriques permettant d'acquérir les connaissances indispensables aux métiers des services à la personne.",
+    },
+    {
+      title: "Études de cas et mises en situation",
+      desc: "Des exercices pratiques inspirés de situations professionnelles réelles afin de développer les compétences attendues.",
+    },
+    {
+      title: "Analyse des pratiques",
+      desc: "Des temps d'échange et de réflexion permettant d'améliorer sa posture professionnelle et d'adapter ses interventions.",
+    },
+    {
+      title: "Accompagnement individualisé",
+      desc: "Un suivi personnalisé tout au long de la formation pour accompagner la progression de chaque stagiaire.",
+    },
+    {
+      title: "Outils numériques",
+      desc: "Des supports et ressources numériques facilitant l'apprentissage, les révisions et le suivi pédagogique.",
+    },
+  ];
+
+  return (
+    <section
+      style={{ padding: "6rem 1.5rem", background: "var(--bg-light)" }}
+      ref={ref}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <SectionHeader
+          tag="Pédagogie"
+          title="Modalités"
+          accent="pédagogiques"
+          subtitle="La formation alterne apports théoriques et mises en situation professionnelles afin de favoriser l'acquisition progressive des compétences."
+          inView={inView}
+        />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
+            gap: "1.5rem",
+          }}
+        >
+          {methods.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{
+                y: -4,
+                boxShadow: "0 12px 30px rgba(13,33,55,0.08)",
+              }}
+              style={{
+                background: "white",
+                borderRadius: 18,
+                padding: "2rem",
+                border: "1px solid rgba(13,33,55,0.07)",
+                boxShadow: "0 2px 12px rgba(13,33,55,0.05)",
+              }}
+            >
+              <div
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 14,
+                  background: "var(--emerald-light)",
+                  color: "var(--emerald)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "1.2rem",
+                }}
+              >
+                <BookOpen size={22} />
+              </div>
+
+              <h3
+                style={{
+                  fontFamily: "Syne,sans-serif",
+                  fontWeight: 700,
+                  fontSize: "1.05rem",
+                  color: "var(--navy)",
+                  marginBottom: "0.8rem",
+                }}
+              >
+                {item.title}
+              </h3>
+
+              <p
+                style={{
+                  color: "var(--gray-text)",
+                  lineHeight: 1.7,
+                  fontSize: ".9rem",
+                }}
+              >
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function ADVFContent() {
   const timelineRef = useRef(null);
   const metiersRef = useRef(null);
@@ -116,15 +447,19 @@ export default function ADVFContent() {
   return (
     <>
       <PageHero
-        tag="Formation professionnelle"
+        tag="Titre Professionnel"
         title="Formation ADVF —"
-        titleAccent="Auxiliaire de Vie aux Familles"
-        subtitle="Une formation certifiante reconnue par l'État pour exercer un métier porteur de sens. Deux rythmes disponibles pour s'adapter à votre situation."
+        titleAccent="Assistant de Vie aux Familles"
+        subtitle="Préparez le Titre Professionnel Assistant de Vie aux Familles (RNCP 37715 – Niveau 3) et développez les compétences nécessaires pour accompagner les personnes dans les actes essentiels et ordinaires de la vie quotidienne."
         image="https://images.unsplash.com/photo-1576765608866-5b51046452be?w=1200&q=80"
-        imageAlt="Formation ADVF"
-        breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Formations" }, { label: "ADVF" }]}
+        imageAlt="Formation Assistant de Vie aux Familles"
+        breadcrumbs={[
+          { label: "Accueil", href: "/" },
+          { label: "Formations" },
+          { label: "ADVF" },
+        ]}
         badgeIcon={<Shield size={12} />}
-        badgeLabel="Certifié par l'État — Titre RNCP"
+        badgeLabel="RNCP 37715 • Niveau 3"
       />
 
       {/* Deux cursus */}
@@ -185,17 +520,106 @@ export default function ADVFContent() {
         </div>
       </section>
 
+      {/* Présentation de la formation */}
+      <PresentationSection />
+
+      {/* Prérequis */}
+      <section style={{ padding: "6rem 1.5rem", background: "white" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <SectionHeader
+            tag="Admission"
+            title="Prérequis de la"
+            accent="formation"
+            subtitle="Cette formation est accessible à toute personne souhaitant exercer dans les métiers des services à la personne, sous réserve de remplir les prérequis suivants."
+            inView={true}
+          />
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
+              gap: "1.5rem",
+            }}
+          >
+            {[
+              {
+                title: "Savoirs fondamentaux",
+                desc: "Maîtriser les savoirs de base en français à l'oral et à l'écrit afin de communiquer efficacement avec les personnes accompagnées et les professionnels.",
+              },
+              {
+                title: "Posture professionnelle",
+                desc: "Être en capacité d'adopter une posture professionnelle fondée sur le respect, la bienveillance, la discrétion et la bientraitance.",
+              },
+              {
+                title: "Hygiène et sécurité",
+                desc: "Être en mesure d'appliquer les règles d'hygiène, de sécurité et de prévention des risques dans le cadre des interventions à domicile.",
+              },
+              {
+                title: "Projet professionnel",
+                desc: "Avoir un projet d'insertion, de reconversion ou d'évolution professionnelle dans le secteur des services à la personne.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                style={{
+                  background: "var(--bg-light)",
+                  borderRadius: 18,
+                  padding: "2rem",
+                  border: "1px solid rgba(13,33,55,0.08)",
+                }}
+              >
+                <CheckCircle
+                  size={22}
+                  color="var(--emerald)"
+                  style={{ marginBottom: "1rem" }}
+                />
+
+                <h3
+                  style={{
+                    fontFamily: "Syne,sans-serif",
+                    fontSize: "1.1rem",
+                    fontWeight: 700,
+                    color: "var(--navy)",
+                    marginBottom: "0.8rem",
+                  }}
+                >
+                  {item.title}
+                </h3>
+
+                <p
+                  style={{
+                    color: "var(--gray-text)",
+                    lineHeight: 1.7,
+                    fontSize: ".92rem",
+                  }}
+                >
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Modalités Pédagogiques */}
+      <TeachingMethodsSection />
       {/* Timeline chronologique */}
       <section style={{ padding: "6rem 1.5rem", background: "white" }} ref={timelineRef}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          
           <SectionHeader tag="Programme" title="Le déroulé de votre" accent="formation en 9 mois"
             subtitle="Un parcours progressif et structuré, de la théorie à la certification officielle."
             inView={timelineInView} />
           <Timeline items={timelineItems} />
+          
           <motion.p initial={{ opacity: 0 }} animate={timelineInView ? { opacity: 1 } : {}} transition={{ delay: 0.5 }}
             style={{ textAlign: "center", color: "var(--gray-text)", fontSize: "0.85rem", marginTop: "3rem", fontStyle: "italic" }}>
             * Le cursus accéléré (3-6 mois) adapte ce programme selon votre profil et vos acquis professionnels.
           </motion.p>
+          <EvaluationSection />
         </div>
       </section>
 
@@ -248,27 +672,26 @@ export default function ADVFContent() {
 
 const faqItems = [
   {
-    question: "Quelle est la durée de la formation ADVF ?",
-    answer: "La formation ADVF est disponible en deux cursus : un cursus complet de 9 mois pour les personnes souhaitant une reconversion complète, et un cursus accéléré de 3 à 6 mois pour les professionnels déjà expérimentés dans le secteur de l'aide à la personne.",
+  question:"Quels sont les prérequis pour intégrer la formation ?",
+  answer:"Il est nécessaire de maîtriser les savoirs de base en français à l'oral et à l'écrit et d'être en capacité de respecter les règles d'hygiène, de sécurité et de bientraitance."
   },
   {
-    question: "La formation ADVF est-elle reconnue par l'État ?",
-    answer: "Oui, la formation ADVF de Twelvelin Formation est certifiée par l'État. Elle permet d'obtenir le titre professionnel ADVF inscrit au Répertoire National des Certifications Professionnelles (RNCP), reconnu dans toute la France.",
+  question:"Comment se déroule la certification ?",
+  answer:"La certification comprend une mise en situation professionnelle de 1 h 15, un entretien technique de 50 minutes et un entretien final de 15 minutes devant un jury."
   },
   {
-    question: "Peut-on suivre la formation ADVF en ligne ?",
-    answer: "Oui, la formation comprend des modules théoriques disponibles en e-learning, accessibles à votre rythme. La partie pratique se déroule en présentiel, sous forme de stages dans des structures agréées.",
+  question:"Quel diplôme obtient-on ?",
+  answer:"Vous obtenez le Titre Professionnel Assistant de Vie aux Familles (RNCP 37715 - Niveau 3), délivré par le Ministère du Travail."
   },
   {
-    question: "Quels sont les débouchés après une formation ADVF ?",
-    answer: "Après la formation ADVF, vous pouvez exercer comme aide à domicile, employé familial, garde d'enfants, ou assistant de vie auprès de personnes âgées ou en situation de dépendance. Le secteur de l'aide à la personne recrute activement et offre des emplois stables.",
+  question:"Quels sont les débouchés ?",
+  answer:"Assistant de vie aux familles, auxiliaire de vie, aide à domicile ou garde d'enfants à domicile. Une poursuite d'études vers le DEAES est également possible."
   },
   {
-    question: "Quel est le prix de la formation ADVF ?",
-    answer: "Le tarif de la formation ADVF est établi sur devis, en fonction de votre profil et du cursus choisi. Contactez-nous pour obtenir une proposition personnalisée adaptée à votre situation.",
-  },
+  question:"Comment s'inscrire ?",
+  answer:"Après le dépôt du dossier d'inscription, un entretien de motivation est organisé afin de valider votre projet professionnel."
+  }
 ];
-
 function FAQSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });

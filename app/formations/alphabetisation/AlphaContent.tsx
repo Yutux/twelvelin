@@ -91,6 +91,336 @@ const avantages = [
   { icon: "📍", title: "En ligne ou en présentiel", desc: "Choisissez la formule qui vous convient, sans contrainte géographique." },
 ];
 
+
+function SectionHeader({ tag, title, accent, subtitle, inView }: { tag: string; title: string; accent?: string; subtitle?: string; inView: boolean }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
+      style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+      <span style={{ color: "var(--emerald)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>{tag}</span>
+      <h2 style={{ fontFamily: "Syne,sans-serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 800, color: "var(--navy)", marginTop: "0.5rem", letterSpacing: "-0.02em" }}>
+        {title} {accent && <span style={{ color: "var(--emerald)" }}>{accent}</span>}
+      </h2>
+      {subtitle && <p style={{ color: "var(--gray-text)", fontSize: "1rem", lineHeight: 1.7, maxWidth: 520, margin: "0.75rem auto 0" }}>{subtitle}</p>}
+    </motion.div>
+  );
+}
+
+function TeachingMethodsSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const methods = [
+    {
+      title: "Cours adaptés à votre niveau",
+      desc: "Les séances sont organisées selon votre niveau (A1 à C1) afin de garantir une progression adaptée à vos acquis et à vos objectifs.",
+    },
+    {
+      title: "Apprentissage pratique",
+      desc: "Les notions sont travaillées à travers des situations concrètes de la vie quotidienne, personnelle et professionnelle.",
+    },
+    {
+      title: "Expression orale et écrite",
+      desc: "Les activités alternent compréhension, conversation, lecture et production écrite pour développer les quatre compétences linguistiques.",
+    },
+    {
+      title: "Suivi individualisé",
+      desc: "Chaque apprenant bénéficie d'un accompagnement personnalisé avec des exercices et des objectifs adaptés à son rythme.",
+    },
+    {
+      title: "Supports variés",
+      desc: "Supports numériques, documents authentiques, jeux pédagogiques, mises en situation et ressources interactives favorisent un apprentissage dynamique.",
+    },
+  ];
+
+  return (
+    <section style={{ padding: "6rem 1.5rem", background: "white" }} ref={ref}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <SectionHeader
+          tag="Pédagogie"
+          title="Nos modalités"
+          accent="pédagogiques"
+          subtitle="Une pédagogie active qui privilégie la pratique, les échanges et la progression individuelle."
+          inView={inView}
+        />
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
+    gap: "1.5rem",
+  }}
+>
+  {methods.map((item, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{
+        y: -4,
+        boxShadow: "0 12px 30px rgba(13,33,55,0.08)",
+      }}
+      style={{
+        background: "white",
+        borderRadius: 18,
+        padding: "2rem",
+        border: "1px solid rgba(13,33,55,0.07)",
+        boxShadow: "0 2px 12px rgba(13,33,55,0.05)",
+      }}
+    >
+      <div
+        style={{
+          width: 52,
+          height: 52,
+          borderRadius: 14,
+          background: "var(--emerald-light)",
+          color: "var(--emerald)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "1.2rem",
+        }}
+      >
+        <BookOpen size={22} />
+      </div>
+
+      <h3
+        style={{
+          fontFamily: "Syne,sans-serif",
+          fontWeight: 700,
+          fontSize: "1.05rem",
+          color: "var(--navy)",
+          marginBottom: "0.8rem",
+        }}
+      >
+        {item.title}
+      </h3>
+
+      <p
+        style={{
+          color: "var(--gray-text)",
+          lineHeight: 1.7,
+          fontSize: ".9rem",
+        }}
+      >
+        {item.desc}
+      </p>
+    </motion.div>
+  ))}
+</div>
+      </div>
+    </section>
+  );
+}
+
+function CertificationSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const certifications = [
+    {
+      title: "Cadre Européen Commun de Référence",
+      desc: "Les apprentissages sont construits selon les niveaux du CECRL, de A1 à C1, afin de garantir une progression reconnue à l'échelle européenne.",
+    },
+    {
+      title: "Préparation aux certifications",
+      desc: "Selon votre projet, la formation peut constituer une préparation à des certifications officielles telles que le DILF, le DELF ou le TCF.",
+    },
+    {
+      title: "Attestation de formation",
+      desc: "À l'issue du parcours, une attestation récapitulant les compétences développées et le niveau atteint peut être délivrée.",
+    },
+    {
+      title: "Valorisation du parcours",
+      desc: "Les compétences acquises facilitent l'insertion professionnelle, la poursuite d'études ou les démarches administratives nécessitant un niveau de français reconnu.",
+    },
+  ];
+
+  return (
+    <section style={{ padding: "6rem 1.5rem", background: "white" }} ref={ref}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <SectionHeader
+          tag="Certification"
+          title="Valorisez vos"
+          accent="compétences en français"
+          subtitle="Une progression reconnue selon les niveaux du CECRL et la possibilité de préparer des certifications officielles."
+          inView={inView}
+        />
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
+    gap: "1.5rem",
+  }}
+>
+  {certifications.map((item, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{
+        y: -4,
+        boxShadow: "0 12px 30px rgba(13,33,55,0.08)",
+      }}
+      style={{
+        background: "white",
+        borderRadius: 18,
+        padding: "2rem",
+        border: "1px solid rgba(13,33,55,0.07)",
+        boxShadow: "0 2px 12px rgba(13,33,55,0.05)",
+      }}
+    >
+      <div
+        style={{
+          width: 52,
+          height: 52,
+          borderRadius: 14,
+          background: "var(--emerald-light)",
+          color: "var(--emerald)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "1.2rem",
+        }}
+      >
+        <BookOpen size={22} />
+      </div>
+
+      <h3
+        style={{
+          fontFamily: "Syne,sans-serif",
+          fontWeight: 700,
+          fontSize: "1.05rem",
+          color: "var(--navy)",
+          marginBottom: "0.8rem",
+        }}
+      >
+        {item.title}
+      </h3>
+
+      <p
+        style={{
+          color: "var(--gray-text)",
+          lineHeight: 1.7,
+          fontSize: ".9rem",
+        }}
+      >
+        {item.desc}
+      </p>
+    </motion.div>
+  ))}
+</div>
+      </div>
+    </section>
+  );
+}
+
+function EvaluationSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const evaluations = [
+    {
+      title: "Positionnement initial",
+      desc: "Un test de niveau permet d'identifier vos acquis et de déterminer le parcours le plus adapté.",
+    },
+    {
+      title: "Évaluation continue",
+      desc: "Votre progression est suivie tout au long de la formation grâce à des exercices pratiques, des mises en situation et des échanges avec le formateur.",
+    },
+    {
+      title: "Bilan de fin de parcours",
+      desc: "Une évaluation finale mesure les compétences acquises en compréhension, expression orale, lecture et écriture.",
+    },
+    {
+      title: "Validation des acquis",
+      desc: "Une attestation de fin de formation mentionnant le niveau atteint peut être remise à l'issue du parcours.",
+    },
+  ];
+
+  return (
+    <section style={{ padding: "6rem 1.5rem", background: "var(--bg-light)" }} ref={ref}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <SectionHeader
+          tag="Évaluation"
+          title="Comment votre"
+          accent="progression est évaluée"
+          subtitle="Chaque étape de votre apprentissage est suivie afin de mesurer vos acquis et votre évolution."
+          inView={inView}
+        />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
+            gap: "1.5rem",
+          }}
+        >
+          {evaluations.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{
+                y: -4,
+                boxShadow: "0 12px 30px rgba(13,33,55,0.08)",
+              }}
+              style={{
+                background: "white",
+                borderRadius: 18,
+                padding: "2rem",
+                border: "1px solid rgba(13,33,55,0.07)",
+                boxShadow: "0 2px 12px rgba(13,33,55,0.05)",
+              }}
+            >
+              <div
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 14,
+                  background: "var(--emerald-light)",
+                  color: "var(--emerald)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "1.2rem",
+                }}
+              >
+                <CheckCircle size={22} />
+              </div>
+
+              <h3
+                style={{
+                  fontFamily: "Syne,sans-serif",
+                  fontWeight: 700,
+                  fontSize: "1.05rem",
+                  color: "var(--navy)",
+                  marginBottom: "0.8rem",
+                }}
+              >
+                {item.title}
+              </h3>
+
+              <p
+                style={{
+                  color: "var(--gray-text)",
+                  lineHeight: 1.7,
+                  fontSize: ".9rem",
+                }}
+              >
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function AlphaContent() {
   const timelineRef = useRef(null);
   const avantagesRef = useRef(null);
@@ -131,6 +461,8 @@ export default function AlphaContent() {
           ))}
         </div>
       </section>
+      <CertificationSection />
+      <TeachingMethodsSection />
 
       {/* Timeline chronologique */}
       <section style={{ padding: "6rem 1.5rem", background: "var(--bg-light)" }} ref={timelineRef}>
@@ -173,6 +505,8 @@ export default function AlphaContent() {
           </div>
         </div>
       </section>
+
+      <EvaluationSection />
 
       {/* Témoignage */}
       <section style={{ padding: "5rem 1.5rem", background: "var(--navy)" }}>
