@@ -91,7 +91,7 @@ export default function FormationADVF() {
                   onMouseLeave={e => e.currentTarget.style.background = `${c.color}08`}>
                   <ArrowRight size={14} /> En savoir plus
                 </Link>
-                <Link href="/nous-contacter"
+                <Link href="#contact"
                   title="Demander un devis"
                   style={{ background: c.color, color: "white", padding: "0.55rem 0.75rem", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", transition: "opacity 0.15s", flexShrink: 0 }}
                   onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
