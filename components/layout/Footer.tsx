@@ -64,9 +64,9 @@ export default function Footer() {
           <div>
             <h4 style={{ fontFamily: "Syne,sans-serif", fontWeight: 700, marginBottom: "1rem", fontSize: "0.9rem", color: "var(--gold)" }}>Contact</h4>
             {[
-              { icon: <MapPin size={13} />, text: "12 rue de la Formation, 75000 Paris" },
-              { icon: <Mail size={13} />, text: "contact@twelvelin.fr" },
-              { icon: <Phone size={13} />, text: "01 23 45 67 89" },
+              { icon: <MapPin size={13} />, text: "23 Rue Nollet, 75017 Paris." },
+              { icon: <Mail size={13} />, text: "contact.twelvelin@gmail.com" },
+              { icon: <Phone size={13} />, text: "07 52 21 37 49" },
             ].map((c, i) => (
               <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", marginBottom: "0.6rem" }}>
                 <span style={{ marginTop: 2, flexShrink: 0, color: "var(--gold)" }}>{c.icon}</span>
@@ -80,7 +80,7 @@ export default function Footer() {
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "1.5rem", display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "0.5rem", fontSize: "0.78rem", color: "rgba(255,255,255,0.3)" }}>
           <span>© 2025 Twelvelin Formation. Tous droits réservés.</span>
           <div style={{ display: "flex", gap: "1.2rem", alignItems: "center", flexWrap: "wrap" }}>
-            <span>N° déclaration : 11 75 XXXXXXXX</span>
+            <span>N° déclaration : 11 91 11 36 191</span>
             <Link href="/mentions-legales" style={{ color: "rgba(255,255,255,0.3)", textDecoration: "none", transition: "color 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.color = "rgba(255,255,255,0.7)"}
               onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.3)"}>

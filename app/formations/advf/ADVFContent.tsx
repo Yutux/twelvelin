@@ -1,8 +1,9 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Shield, Award, Clock, Users, CheckCircle, ArrowRight, BookOpen, Heart, Home } from "lucide-react";
 import PageHero from "@/components/UI/PageHero";
+import FAQJsonLd from "@/components/seo/FAQJsonLd";
 import Timeline from "@/components/UI/Timeline";
 import Link from "next/link";
 
@@ -163,12 +164,18 @@ export default function ADVFContent() {
                     </li>
                   ))}
                 </ul>
-                <div style={{ borderTop: "1px solid #f0f0f0", paddingTop: "1.2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <div>
-                    <p style={{ fontSize: "0.72rem", color: "var(--gray-text)" }}>Tarif</p>
-                    <p style={{ fontFamily: "Syne,sans-serif", fontWeight: 800, color: "var(--navy)" }}>Sur devis</p>
-                  </div>
-                  <Link href="/nous-contacter" style={{ background: c.color, color: "white", padding: "0.6rem 1.2rem", borderRadius: 8, fontWeight: 600, fontSize: "0.85rem", textDecoration: "none" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <Link href="/formations/advf"
+                    style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: c.color, fontWeight: 600, fontSize: "0.82rem", textDecoration: "none", padding: "0.5rem 0.9rem", borderRadius: 8, border: `1px solid ${c.color}30`, background: `${c.color}08`, transition: "background 0.15s", whiteSpace: "nowrap" }}
+                    onMouseEnter={e => e.currentTarget.style.background = `${c.color}18`}
+                    onMouseLeave={e => e.currentTarget.style.background = `${c.color}08`}>
+                    <ArrowRight size={14} /> En savoir plus
+                  </Link>
+                  <Link href="/nous-contacter"
+                    title="Demander un devis"
+                    style={{ background: c.color, color: "white", padding: "0.55rem 0.75rem", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", transition: "opacity 0.15s", flexShrink: 0 }}
+                    onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
+                    onMouseLeave={e => e.currentTarget.style.opacity = "1"}>
                     Demander un devis
                   </Link>
                 </div>
@@ -198,7 +205,7 @@ export default function ADVFContent() {
           <SectionHeader tag="Débouchés" title="Les métiers" accent="qui s'ouvrent à vous"
             subtitle="Avec le titre ADVF, vous accédez à des postes stables et valorisés dans le secteur de l'aide à la personne."
             inView={metiersInView} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: "1.2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))", gap: "1.2rem" }}>
             {metiers.map((m, i) => (
               <motion.div key={i}
                 initial={{ opacity: 0, y: 20 }} animate={metiersInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -214,6 +221,9 @@ export default function ADVFContent() {
           </div>
         </div>
       </section>
+
+      {/* FAQ — affiché dans Google */}
+      <FAQSection />
 
       {/* CTA */}
       <section style={{ padding: "5rem 1.5rem", background: "var(--navy)", textAlign: "center" }} ref={ctaRef}>
@@ -233,5 +243,87 @@ export default function ADVFContent() {
         </div>
       </section>
     </>
+  );
+}
+
+const faqItems = [
+  {
+    question: "Quelle est la durée de la formation ADVF ?",
+    answer: "La formation ADVF est disponible en deux cursus : un cursus complet de 9 mois pour les personnes souhaitant une reconversion complète, et un cursus accéléré de 3 à 6 mois pour les professionnels déjà expérimentés dans le secteur de l'aide à la personne.",
+  },
+  {
+    question: "La formation ADVF est-elle reconnue par l'État ?",
+    answer: "Oui, la formation ADVF de Twelvelin Formation est certifiée par l'État. Elle permet d'obtenir le titre professionnel ADVF inscrit au Répertoire National des Certifications Professionnelles (RNCP), reconnu dans toute la France.",
+  },
+  {
+    question: "Peut-on suivre la formation ADVF en ligne ?",
+    answer: "Oui, la formation comprend des modules théoriques disponibles en e-learning, accessibles à votre rythme. La partie pratique se déroule en présentiel, sous forme de stages dans des structures agréées.",
+  },
+  {
+    question: "Quels sont les débouchés après une formation ADVF ?",
+    answer: "Après la formation ADVF, vous pouvez exercer comme aide à domicile, employé familial, garde d'enfants, ou assistant de vie auprès de personnes âgées ou en situation de dépendance. Le secteur de l'aide à la personne recrute activement et offre des emplois stables.",
+  },
+  {
+    question: "Quel est le prix de la formation ADVF ?",
+    answer: "Le tarif de la formation ADVF est établi sur devis, en fonction de votre profil et du cursus choisi. Contactez-nous pour obtenir une proposition personnalisée adaptée à votre situation.",
+  },
+];
+
+function FAQSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <section style={{ padding: "6rem 1.5rem", background: "white" }} ref={ref}>
+      <FAQJsonLd items={faqItems} />
+      <div style={{ maxWidth: 800, margin: "0 auto" }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
+          style={{ marginBottom: "3rem", textAlign: "center" }}>
+          <span style={{ color: "var(--emerald)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Questions fréquentes</span>
+          <h2 style={{ fontFamily: "Syne,sans-serif", fontSize: "clamp(1.6rem,3.5vw,2.2rem)", fontWeight: 800, color: "var(--navy)", marginTop: "0.5rem", marginBottom: "0", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+            Tout savoir sur la formation ADVF
+          </h2>
+        </motion.div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          {faqItems.map((item, i) => (
+            <FAQItem key={i} item={item} index={i} inView={inView} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQItem({ item, index, inView }: { item: { question: string; answer: string }; index: number; inView: boolean }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      style={{ background: "var(--bg-light)", borderRadius: 14, overflow: "hidden", border: "1px solid rgba(13,33,55,0.07)" }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", padding: "1.2rem 1.5rem", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+      >
+        <span style={{ fontFamily: "Syne,sans-serif", fontWeight: 700, fontSize: "0.95rem", color: "var(--navy)" }}>{item.question}</span>
+        <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: open ? "var(--emerald)" : "rgba(13,33,55,0.08)", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s", color: open ? "white" : "var(--navy)", fontSize: "1.1rem", lineHeight: 1 }}>
+          {open ? "−" : "+"}
+        </span>
+      </button>
+      <motion.div
+        initial={false}
+        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.25 }}
+        style={{ overflow: "hidden" }}
+      >
+        <p style={{ padding: "0 1.5rem 1.2rem", color: "var(--gray-text)", fontSize: "0.9rem", lineHeight: 1.75, margin: 0 }}>
+          {item.answer}
+        </p>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -12,10 +12,25 @@ export default function ContactContent() {
   const [sent, setSent] = useState(false);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>();
 
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-    await new Promise(r => setTimeout(r, 1000));
-    setSent(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) {
+        setSubmitError(json.error || "Une erreur est survenue. Veuillez réessayer.");
+        return;
+      }
+      setSent(true);
+    } catch {
+      setSubmitError("Impossible d envoyer le message. Vérifiez votre connexion.");
+    }
   };
 
   const inputStyle = (err?: boolean) => ({
@@ -56,9 +71,9 @@ export default function ContactContent() {
             {/* Coordonnées */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem", marginBottom: "2rem" }}>
               {[
-                { icon: <MapPin size={18} />, label: "Adresse", val: "12 rue de la Formation, 75000 Paris", color: "var(--emerald)" },
-                { icon: <Mail size={18} />, label: "Email", val: "contact@twelvelin.fr", color: "var(--gold)" },
-                { icon: <Phone size={18} />, label: "Téléphone", val: "01 23 45 67 89", color: "var(--emerald)" },
+                { icon: <MapPin size={18} />, label: "Adresse", val: "23 Rue Nollet, 75017 Paris.", color: "var(--emerald)" },
+                { icon: <Mail size={18} />, label: "Email", val: "contact.twelvelin@gmail.com", color: "var(--gold)" },
+                { icon: <Phone size={18} />, label: "Téléphone", val: "07 52 21 37 49", color: "var(--emerald)" },
                 { icon: <Clock size={18} />, label: "Horaires", val: "Lun–Ven : 9h–18h", color: "var(--gold)" },
               ].map((c, i) => (
                 <motion.div key={i}
@@ -158,6 +173,12 @@ export default function ContactContent() {
                       onFocus={e => e.target.style.borderColor = "var(--emerald)"}
                       onBlur={e => e.target.style.borderColor = "rgba(13,33,55,0.15)"} />
                   </div>
+
+                  {submitError && (
+                    <div style={{ background: "#FEE2E2", border: "1px solid #FECACA", borderRadius: 10, padding: "0.75rem 1rem", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <span style={{ color: "#DC2626", fontSize: "0.85rem", fontWeight: 500 }}>⚠ {submitError}</span>
+                    </div>
+                  )}
 
                   <button type="submit" disabled={isSubmitting}
                     style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.6rem", background: isSubmitting ? "var(--gray-text)" : "var(--emerald)", color: "white", border: "none", padding: "0.95rem", borderRadius: 10, fontWeight: 700, fontSize: "0.95rem", fontFamily: "Inter,sans-serif", cursor: isSubmitting ? "not-allowed" : "pointer", transition: "opacity 0.15s,transform 0.15s" }}

@@ -8,7 +8,7 @@ const niveaux = [
   { level: "A1", label: "Débutant", desc: "Alphabet, lecture syllabique, écriture simple du quotidien", icon: <PenLine size={16} />, price: "10€/h" },
   { level: "A2", label: "Élémentaire", desc: "Lecture de textes courts, rédaction de phrases simples", icon: <BookOpen size={16} />, price: "10€/h" },
   { level: "B1", label: "Intermédiaire", desc: "Compréhension de textes courants, expression structurée", icon: <Mic size={16} />, price: "12€/h" },
-  { level: "B2", label: "Avancé", desc: "Argumentation, documents complexes, correspondance pro", icon: <Brain size={16} />, price: "14€/h" },
+  { level: "B2", label: "Avancé", desc: "Argumentation, documents complexes, correspondance pro", icon: <Brain size={20} />, price: "14€/h" },
   { level: "C1", label: "Courant", desc: "Maîtrise complète, expression précise à l'écrit et à l'oral", icon: <Sparkles size={16} />, price: "15€/h" },
 ];
 
@@ -74,7 +74,7 @@ export default function FormationAlpha() {
                     </div>
                   </div>
                   <div style={{ flexShrink: 0, background: "white", border: `1px solid ${colorAt(i)}30`, padding: "0.3rem 0.85rem", borderRadius: 8 }}>
-                    <span style={{ fontFamily: "Syne,sans-serif", fontWeight: 800, color: colorAt(i), fontSize: "0.9rem" }}>{n.price}</span>
+                    <span style={{ fontFamily: "Inter,sans-serif", fontWeight: 700, color: colorAt(i), fontSize: "0.95rem", letterSpacing: "0.01em" }}>{n.price}</span>
                   </div>
                 </motion.div>
               </motion.div>
