@@ -139,11 +139,9 @@ export default function Contact() {
                     <option value="">Choisissez une formation…</option>
                     <option value="advf-9">ADVF — Cursus 9 mois</option>
                     <option value="advf-court">ADVF — Cursus 3 à 6 mois</option>
-                    <option value="alpha-a1">Alphabétisation A1</option>
-                    <option value="alpha-a2">Alphabétisation A2</option>
-                    <option value="alpha-b1">Alphabétisation B1</option>
-                    <option value="alpha-b2">Alphabétisation B2</option>
-                    <option value="alpha-c1">Français avancé C1</option>
+                    <option value="alpha-a1">Cours Français Niveau A1</option>
+                    <option value="alpha-a2">Cours Français Niveau A2</option>
+                    <option value="alpha-c1">Français avancé</option>
                   </select>
                 </div>
 

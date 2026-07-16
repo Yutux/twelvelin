@@ -94,7 +94,7 @@ export default function ContactContent() {
               {[
                 { label: "Formation ADVF — 9 mois", href: "/formations/advf", color: "var(--emerald)" },
                 { label: "Formation ADVF — 3 à 6 mois", href: "/formations/advf", color: "var(--emerald)" },
-                { label: "Alphabétisation A1 → C1", href: "/formations/alphabetisation", color: "var(--gold)" },
+                { label: "Cours de français A1 → B1", href: "/formations/alphabetisation", color: "var(--gold)" },
               ].map((f, i) => (
                 <a key={i} href={f.href} style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--navy)", fontSize: "0.86rem", textDecoration: "none", padding: "0.45rem 0", borderBottom: i < 2 ? "1px solid rgba(13,33,55,0.06)" : "none" }}>
                   <CheckCircle size={13} color={f.color} /> {f.label}
@@ -155,12 +155,10 @@ export default function ContactContent() {
                         <option value="advf-9">ADVF — Cursus 9 mois</option>
                         <option value="advf-court">ADVF — Cursus 3 à 6 mois</option>
                       </optgroup>
-                      <optgroup label="Alphabétisation">
-                        <option value="alpha-a1">Alphabétisation A1</option>
-                        <option value="alpha-a2">Alphabétisation A2</option>
-                        <option value="alpha-b1">Alphabétisation B1</option>
-                        <option value="alpha-b2">Alphabétisation B2</option>
-                        <option value="alpha-c1">Français avancé C1</option>
+                      <optgroup label="Cours de français">
+                        <option value="alpha-a1">Cours de français A1</option>
+                        <option value="alpha-a2">Cours de français A2</option>
+                        <option value="alpha-b1">Cours de français Avancé B1</option>
                       </optgroup>
                       <option value="autre">Autre / Je ne sais pas encore</option>
                     </select>

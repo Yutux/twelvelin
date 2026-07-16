@@ -18,7 +18,7 @@ export default function Footer() {
               </span>
             </div>
             <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.86rem", lineHeight: 1.7, marginBottom: "1.2rem" }}>
-              Organisme de formation certifié par l&apos;État, spécialisé en ADVF et alphabétisation.
+              Organisme de formation certifié par l&apos;État, spécialisé en ADVF et cours de français.
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)", padding: "0.4rem 0.8rem", borderRadius: 8, width: "fit-content" }}>
               <Shield size={12} color="var(--gold)" />
@@ -32,7 +32,7 @@ export default function Footer() {
             {[
               { label: "ADVF — 9 mois", href: "/formations/advf" },
               { label: "ADVF — 3 à 6 mois", href: "/formations/advf" },
-              { label: "Alphabétisation A1→C1", href: "/formations/alphabetisation" },
+              { label: "Cours de français A1→A2", href: "/formations/alphabetisation" },
             ].map(f => (
               <Link key={f.label} href={f.href}
                 style={{ display: "block", color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", marginBottom: "0.45rem", textDecoration: "none", transition: "color 0.2s" }}
