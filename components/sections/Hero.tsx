@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section style={{
-      background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0D3D2C 100%)",
+      background: "linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #49329b 100%)",
       minHeight: "100vh",
       display: "flex",
       alignItems: "center",
