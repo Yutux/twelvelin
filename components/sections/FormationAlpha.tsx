@@ -7,10 +7,8 @@ import Image from "next/image";
 
 const niveaux = [
   { level: "A1", label: "Débutant", desc: "Alphabet, lecture syllabique, écriture simple du quotidien", icon: <PenLine size={16} />, price: "10€/h" },
-  { level: "A2", label: "Élémentaire", desc: "Lecture de textes courts, rédaction de phrases simples", icon: <BookOpen size={16} />, price: "10€/h" },
-  { level: "B1", label: "Intermédiaire", desc: "Compréhension de textes courants, expression structurée", icon: <Mic size={16} />, price: "12€/h" },
-  { level: "B2", label: "Avancé", desc: "Argumentation, documents complexes, correspondance pro", icon: <Brain size={20} />, price: "14€/h" },
-  { level: "C1", label: "Courant", desc: "Maîtrise complète, expression précise à l'écrit et à l'oral", icon: <Sparkles size={16} />, price: "15€/h" },
+  { level: "A2", label: "Élémentaire", desc: "Lecture de textes courts, rédaction de phrases simples", icon: <BookOpen size={16} />, price: "12€/h" },
+  { level: "B1", label: "Avancé", desc: "Compréhension de textes courants, expression structurée", icon: <Mic size={16} />, price: "15€/h" },
 ];
 
 const colorAt = (i: number) => {
@@ -42,7 +40,7 @@ export default function FormationAlpha() {
               Apprendre à lire,<br /><span style={{ color: "var(--emerald)" }}>écrire et parler.</span>
             </h2>
             <p style={{ color: "var(--gray-text)", fontSize: "1rem", lineHeight: 1.75, marginTop: "0.75rem" }}>
-              Des cours individualisés du niveau A1 au C1, dispensés par des formateurs expérimentés. Progressez à votre rythme, en toute bienveillance.
+              Des cours individualisés du niveau A1 au A2, dispensés par des formateurs expérimentés. Progressez à votre rythme, en toute bienveillance.
             </p>
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <Link href="/formations/alphabetisation" title="En savoir plus sur la formation"

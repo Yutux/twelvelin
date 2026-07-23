@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Send, MapPin, Mail, Phone, CheckCircle } from "lucide-react";
 import Image from "next/image";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 type FormData = {
   nom: string;
@@ -11,6 +13,7 @@ type FormData = {
   telephone: string;
   formation: string;
   message: string;
+  pays?: string;
 };
 
 export default function Contact() {
@@ -18,15 +21,22 @@ export default function Contact() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [sent, setSent] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>();
+  const [phoneValue, setPhoneValue] = useState<string>("");
+  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
     setSubmitError(null);
+
+    if (phoneValue && !isValidPhoneNumber(phoneValue)) {
+      setSubmitError("Le numéro de téléphone n’est pas valide.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, telephone: phoneValue || "", pays: phoneValue ? "international" : "" }),
       });
       const json = await res.json();
       if (!res.ok || !json.success) {
@@ -118,9 +128,17 @@ export default function Contact() {
                   </div>
                   <div>
                     <label style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--navy)", display: "block", marginBottom: "0.4rem" }}>Téléphone</label>
-                    <input {...register("telephone")} placeholder="06 12 34 56 78" style={inputStyle()}
-                      onFocus={e => e.target.style.borderColor = "var(--emerald)"}
-                      onBlur={e => e.target.style.borderColor = "rgba(13,33,55,0.15)"} />
+                    <PhoneInput
+                      international
+                      defaultCountry="FR"
+                      value={phoneValue}
+                      onChange={(value) => {
+                        setPhoneValue(value || "");
+                        setValue("telephone", value || "", { shouldValidate: true });
+                      }}
+                      placeholder="06 12 34 56 78"
+                      className="phone-input"
+                    />
                   </div>
                 </div>
 
@@ -139,11 +157,9 @@ export default function Contact() {
                     <option value="">Choisissez une formation…</option>
                     <option value="advf-9">ADVF — Cursus 9 mois</option>
                     <option value="advf-court">ADVF — Cursus 3 à 6 mois</option>
-                    <option value="alpha-a1">Alphabétisation A1</option>
-                    <option value="alpha-a2">Alphabétisation A2</option>
-                    <option value="alpha-b1">Alphabétisation B1</option>
-                    <option value="alpha-b2">Alphabétisation B2</option>
-                    <option value="alpha-c1">Français avancé C1</option>
+                    <option value="alpha-a1">Cours Français Niveau A1</option>
+                    <option value="alpha-a2">Cours Français Niveau A2</option>
+                    <option value="alpha-c1">Français avancé</option>
                   </select>
                 </div>
 
@@ -174,6 +190,30 @@ export default function Contact() {
       </div>
 
       <style>{`
+        .phone-input input {
+          width: 100%;
+          padding: 0.8rem 1rem;
+          border: 1.5px solid rgba(13,33,55,0.15);
+          border-radius: 10px;
+          font-size: 0.9rem;
+          font-family: Inter,sans-serif;
+          color: var(--navy);
+          background: white;
+          outline: none;
+          transition: border-color 0.2s;
+        }
+        .phone-input input:focus {
+          border-color: var(--emerald);
+        }
+        .phone-input .PhoneInputCountry {
+          margin-right: 0.5rem;
+        }
+        .phone-input .PhoneInputCountrySelect {
+          border: 1.5px solid rgba(13,33,55,0.15);
+          border-radius: 10px;
+          padding: 0.7rem 0.6rem;
+          background: white;
+        }
         @media(max-width:768px){
           .contact-grid{grid-template-columns:1fr!important;}
           .form-row{grid-template-columns:1fr!important;}

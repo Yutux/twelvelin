@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -25,13 +25,13 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Lato', sans-serif;
   color: var(--navy);
   background: var(--white);
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
 .skip-link {
   position: absolute;

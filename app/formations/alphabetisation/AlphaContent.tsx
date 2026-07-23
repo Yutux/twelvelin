@@ -39,48 +39,22 @@ const timelineItems = [
   },
   {
     period: "Niveau B1",
-    label: "Intermédiaire",
-    title: "S'exprimer avec confiance",
+    label: "Intermédiaire & Avancé",
+    title: "S'exprimer avec confiance et Argumenter & rédiger avec aisance",
     desc: "Compréhension de textes courants et capacité à s'exprimer sur des sujets familiers de façon claire et structurée.",
     details: [
       "Compréhension de textes variés",
       "Expression écrite structurée",
       "Conversation fluide sur le quotidien",
       "Rédaction de lettres simples",
-    ],
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
-    imageAlt: "Cours intermédiaire de français",
-    color: "#22A070",
-  },
-  {
-    period: "Niveau B2",
-    label: "Avancé",
-    title: "Argumenter & rédiger avec aisance",
-    desc: "Maîtrise de textes complexes, capacité à défendre un point de vue et à rédiger des documents professionnels.",
-    details: [
       "Lecture de documents complexes",
       "Argumentation écrite et orale",
       "Correspondance professionnelle",
       "Compréhension de médias francophones",
     ],
-    image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&q=80",
-    imageAlt: "Rédaction avancée",
-    color: "#C9A84C",
-  },
-  {
-    period: "Niveau C1",
-    label: "Courant",
-    title: "Maîtrise complète du français",
-    desc: "Expression précise et nuancée à l'écrit comme à l'oral. Niveau adapté aux exigences professionnelles et académiques les plus élevées.",
-    details: [
-      "Expression précise et nuancée",
-      "Textes longs et spécialisés",
-      "Maîtrise des registres de langue",
-      "Aisance dans tous les contextes",
-    ],
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80",
-    imageAlt: "Maîtrise avancée du français",
-    color: "#B8962A",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
+    imageAlt: "Cours intermédiaire de français",
+    color: "#22A070",
   },
 ];
 
@@ -447,10 +421,9 @@ export default function AlphaContent() {
       <section style={{ padding: "3rem 1.5rem", background: "white", borderBottom: "1px solid rgba(13,33,55,0.07)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: "1.5rem" }}>
           {[
-            { level: "A1 — A2", price: "10€/h", color: "#0E7C5B" },
-            { level: "B1", price: "12€/h", color: "#22A070" },
-            { level: "B2", price: "14€/h", color: "#C9A84C" },
-            { level: "C1", price: "15€/h", color: "#B8962A" },
+            { level: "A1", price: "10€/h", color: "#0E7C5B" },
+            { level: "A2 ", price: "12€/h", color: "#22A070" },
+            { level: "B1", price: "15€/h", color: "#C9A84C" },
           ].map((p, i) => (
             <motion.div key={i}
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i * 0.08 }}

@@ -5,22 +5,31 @@ import { useForm } from "react-hook-form";
 import { Send, MapPin, Mail, Phone, Clock, CheckCircle, MessageSquare } from "lucide-react";
 import PageHero from "@/components/UI/PageHero";
 import Image from "next/image";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 type FormData = { nom: string; email: string; telephone: string; formation: string; message: string; };
 
 export default function ContactContent() {
   const [sent, setSent] = useState(false);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>();
+  const [phoneValue, setPhoneValue] = useState<string>("");
+  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<FormData>();
 
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const onSubmit = async (data: FormData) => {
     setSubmitError(null);
+
+    if (phoneValue && !isValidPhoneNumber(phoneValue)) {
+      setSubmitError("Le numéro de téléphone n’est pas valide.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, telephone: phoneValue || "", pays: phoneValue ? "international" : "" }),
       });
       const json = await res.json();
       if (!res.ok || !json.success) {
@@ -94,7 +103,7 @@ export default function ContactContent() {
               {[
                 { label: "Formation ADVF — 9 mois", href: "/formations/advf", color: "var(--emerald)" },
                 { label: "Formation ADVF — 3 à 6 mois", href: "/formations/advf", color: "var(--emerald)" },
-                { label: "Alphabétisation A1 → C1", href: "/formations/alphabetisation", color: "var(--gold)" },
+                { label: "Cours de français A1 → B1", href: "/formations/alphabetisation", color: "var(--gold)" },
               ].map((f, i) => (
                 <a key={i} href={f.href} style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--navy)", fontSize: "0.86rem", textDecoration: "none", padding: "0.45rem 0", borderBottom: i < 2 ? "1px solid rgba(13,33,55,0.06)" : "none" }}>
                   <CheckCircle size={13} color={f.color} /> {f.label}
@@ -132,9 +141,17 @@ export default function ContactContent() {
                     </div>
                     <div>
                       <label style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--navy)", display: "block", marginBottom: "0.4rem" }}>Téléphone</label>
-                      <input {...register("telephone")} placeholder="06 12 34 56 78" style={inputStyle()}
-                        onFocus={e => e.target.style.borderColor = "var(--emerald)"}
-                        onBlur={e => e.target.style.borderColor = "rgba(13,33,55,0.15)"} />
+                      <PhoneInput
+                        international
+                        defaultCountry="FR"
+                        value={phoneValue}
+                        onChange={(value) => {
+                          setPhoneValue(value || "");
+                          setValue("telephone", value || "", { shouldValidate: true });
+                        }}
+                        placeholder="06 12 34 56 78"
+                        className="phone-input"
+                      />
                     </div>
                   </div>
 
@@ -155,12 +172,10 @@ export default function ContactContent() {
                         <option value="advf-9">ADVF — Cursus 9 mois</option>
                         <option value="advf-court">ADVF — Cursus 3 à 6 mois</option>
                       </optgroup>
-                      <optgroup label="Alphabétisation">
-                        <option value="alpha-a1">Alphabétisation A1</option>
-                        <option value="alpha-a2">Alphabétisation A2</option>
-                        <option value="alpha-b1">Alphabétisation B1</option>
-                        <option value="alpha-b2">Alphabétisation B2</option>
-                        <option value="alpha-c1">Français avancé C1</option>
+                      <optgroup label="Cours de français">
+                        <option value="alpha-a1">Cours de français A1</option>
+                        <option value="alpha-a2">Cours de français A2</option>
+                        <option value="alpha-b1">Cours de français Avancé B1</option>
                       </optgroup>
                       <option value="autre">Autre / Je ne sais pas encore</option>
                     </select>
@@ -194,6 +209,30 @@ export default function ContactContent() {
       </section>
 
       <style>{`
+        .phone-input input {
+          width: 100%;
+          padding: 0.85rem 1rem;
+          border: 1.5px solid rgba(13,33,55,0.15);
+          border-radius: 10px;
+          font-size: 0.9rem;
+          font-family: Inter,sans-serif;
+          color: var(--navy);
+          background: white;
+          outline: none;
+          transition: border-color 0.2s;
+        }
+        .phone-input input:focus {
+          border-color: var(--emerald);
+        }
+        .phone-input .PhoneInputCountry {
+          margin-right: 0.5rem;
+        }
+        .phone-input .PhoneInputCountrySelect {
+          border: 1.5px solid rgba(13,33,55,0.15);
+          border-radius: 10px;
+          padding: 0.7rem 0.6rem;
+          background: white;
+        }
         @media(max-width:768px){
           .contact-grid{grid-template-columns:1fr!important;}
           .form-row{grid-template-columns:1fr!important;}

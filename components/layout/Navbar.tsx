@@ -10,7 +10,7 @@ const nav = [
     label: "Formations",
     children: [
       { label: "ADVF", href: "/formations/advf", desc: "Auxiliaire de Vie aux Familles" },
-      { label: "Alphabétisation", href: "/formations/alphabetisation", desc: "Niveaux A1 → C1" },
+      { label: "Cours de français", href: "/formations/alphabetisation", desc: "Niveaux A1 → A2" },
     ],
   },
   { label: "Comment ça marche", href: "/#etapes" },
@@ -115,7 +115,7 @@ export default function Navbar() {
       {open && (
         <div style={{ background: "var(--navy)", padding: "1rem 1.5rem 1.5rem", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
           <Link href="/formations/advf" onClick={() => setOpen(false)} style={{ display: "block", padding: "0.75rem 0", color: "rgba(255,255,255,0.8)", fontWeight: 500, textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>Formation ADVF</Link>
-          <Link href="/formations/alphabetisation" onClick={() => setOpen(false)} style={{ display: "block", padding: "0.75rem 0", color: "rgba(255,255,255,0.8)", fontWeight: 500, textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>Alphabétisation</Link>
+          <Link href="/formations/alphabetisation" onClick={() => setOpen(false)} style={{ display: "block", padding: "0.75rem 0", color: "rgba(255,255,255,0.8)", fontWeight: 500, textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>Cours de français</Link>
           <Link href="/#etapes" onClick={() => setOpen(false)} style={{ display: "block", padding: "0.75rem 0", color: "rgba(255,255,255,0.8)", fontWeight: 500, textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>Comment ça marche</Link>
           <Link href="/nous-contacter" onClick={() => setOpen(false)} style={{ display: "block", padding: "0.75rem 0", color: "rgba(255,255,255,0.8)", fontWeight: 500, textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>Contact</Link>
           <Link href="/nous-contacter" onClick={() => setOpen(false)} style={{ display: "block", marginTop: "1rem", background: "var(--emerald)", color: "white", textAlign: "center", padding: "0.75rem", borderRadius: 8, fontWeight: 600, textDecoration: "none" }}>S&apos;inscrire</Link>
