@@ -500,12 +500,6 @@ export default function ADVFContent() {
                   ))}
                 </ul>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <Link href="/formations/advf"
-                    style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", color: c.color, fontWeight: 600, fontSize: "0.82rem", textDecoration: "none", padding: "0.5rem 0.9rem", borderRadius: 8, border: `1px solid ${c.color}30`, background: `${c.color}08`, transition: "background 0.15s", whiteSpace: "nowrap" }}
-                    onMouseEnter={e => e.currentTarget.style.background = `${c.color}18`}
-                    onMouseLeave={e => e.currentTarget.style.background = `${c.color}08`}>
-                    <ArrowRight size={14} /> En savoir plus
-                  </Link>
                   <Link href="/nous-contacter"
                     title="Demander un devis"
                     style={{ background: c.color, color: "white", padding: "0.55rem 0.75rem", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", transition: "opacity 0.15s", flexShrink: 0 }}

@@ -10,7 +10,7 @@ const nav = [
     label: "Formations",
     children: [
       { label: "ADVF", href: "/formations/advf", desc: "Auxiliaire de Vie aux Familles" },
-      { label: "Cours de français", href: "/formations/alphabetisation", desc: "Niveaux A1 → A2" },
+      { label: "Cours de français", href: "/formations/alphabetisation", desc: "Niveaux A1 → B1" },
     ],
   },
   { label: "Comment ça marche", href: "/#etapes" },
